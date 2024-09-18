@@ -1,0 +1,15 @@
+name: social-status-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - r-base
+  - r-haven
+  - r-psych
+  - r-dplyr
+  - r-car
+  - r-interactions
+  - r-ggplot2
+  - r-ggfortify
+  - r-reghelper
+  - r-hmisc
