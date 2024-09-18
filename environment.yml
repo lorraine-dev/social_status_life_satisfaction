@@ -10,5 +10,4 @@ dependencies:
   - r-interactions
   - r-ggplot2
   - r-ggfortify
-  - r-reghelper
   - r-hmisc
