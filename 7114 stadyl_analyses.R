@@ -3,7 +3,7 @@ if (!require("reghelper")) {
     install.packages("reghelper", repos = "http://cran.us.r-project.org")
 }
 # Source the data import script (which contains the data import function)
-source("data_import.R")
+source("import_data.R")
 
 # Call the function to import and load the dataset
 data <- import_and_save_data()
