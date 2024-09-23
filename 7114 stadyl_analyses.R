@@ -1,7 +1,11 @@
-# Install reghelper from CRAN if not already installed
+# Load necessary libraries
+if (!require("dplyr")) {
+    install.packages("dplyr", repos = "http://cran.us.r-project.org")
+}
 if (!require("reghelper")) {
     install.packages("reghelper", repos = "http://cran.us.r-project.org")
 }
+
 # Source the data import script (which contains the data import function)
 source("import_data.R")
 
@@ -16,4 +20,5 @@ data <- data %>% mutate_all(~na_if(., -9))
 str(data)
 
 # Optionally save the cleaned data to a new CSV file
-# write_csv(data, "cleaned_stadyl_data.csv")
+# write.csv(data, "cleaned_stadyl_data.csv")
+
