@@ -5,6 +5,9 @@ if (!require("haven")) {
 if (!require("httr")) {
     install.packages("httr", repos = "http://cran.us.r-project.org")
 }
+if (!require("foreign")) {
+    install.packages("foreign", repos = "http://cran.us.r-project.org")
+}
 
 # Function to download and save the dataset
 import_and_save_data <- function(file_path = "data/StadyL_Study2.sav") {
@@ -25,6 +28,7 @@ import_and_save_data <- function(file_path = "data/StadyL_Study2.sav") {
     }
 
     # Load the dataset into R and return it
-    data <- haven::read_sav(file_path)
+    data <- foreign::read.spss(file_path, to.data.frame = TRUE)
+    #data <- haven::read_sav(file_path)
     return(data)
 }
