@@ -5,9 +5,6 @@ if (!require("haven")) {
 if (!require("httr")) {
     install.packages("httr", repos = "http://cran.us.r-project.org")
 }
-if (!require("foreign")) {
-    install.packages("foreign", repos = "http://cran.us.r-project.org")
-}
 
 # Function to download and save the dataset
 import_and_save_data <- function(file_path = "data/StadyL_Study2.sav") {
@@ -21,14 +18,21 @@ import_and_save_data <- function(file_path = "data/StadyL_Study2.sav") {
 
     # Download the dataset if not already saved
     if (!file.exists(file_path)) {
-        download.file(data_url, destfile = file_path, mode = "wb")
-        message("Data has been downloaded and saved to: ", file_path)
+        response <- GET(data_url)
+        
+        # Check if the file type is correct (SPSS .sav file)
+        if (http_type(response) == "application/octet-stream") {
+            # Save the file to the local path
+            writeBin(content(response, "raw"), file_path)
+            message("Data has been downloaded and saved to: ", file_path)
+        } else {
+            stop("The file downloaded is not in SPSS .sav format. Please check the source URL.")
+        }
     } else {
         message("Data already exists at: ", file_path)
     }
 
-    # Load the dataset into R and return it
-    data <- foreign::read.spss(file_path, to.data.frame = TRUE)
-    #data <- haven::read_sav(file_path)
+    # Load the dataset into R using haven and return it
+    data <- haven::read_sav(file_path)
     return(data)
 }
